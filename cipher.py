@@ -69,3 +69,37 @@ def add_date_padding(stream, skip_count, bases):
         padding.append(random.randint(0, max_val + 5))
         
     return padding + stream
+
+def decode_stream(full_stream, skip_count, bases):
+    """
+    Decodes the stream by skipping the Date Key padding,
+    then filtering out inline decoys dynamically.
+    """
+    # 1. Handle the Date Key: Slice off the initial padding
+    actual_data_stream = full_stream[skip_count:]
+    
+    decoded_letters = []
+    current_block = []
+    position = 0 
+    
+    # 2. Process the remaining stream
+    for digit in actual_data_stream:
+        # Is the number of dots valid for the position we are currently looking at?
+        if digit < bases[position]:
+            current_block.append(digit)
+            position += 1
+            
+            # Once we grab 3 valid positions, rebuild the letter
+            if position == 3:
+                char_val = (current_block[0] * bases[1] * bases[2]) + (current_block[1] * bases[2]) + current_block[2]
+                decoded_letters.append(chr(char_val + 64))
+                
+                # Reset for next character
+                current_block = []
+                position = 0
+        else:
+            # Decoy found! The human eye skips this number/petal.
+            # Position does NOT advance, keeping the window synchronized.
+            pass
+            
+    return "".join(decoded_letters)
