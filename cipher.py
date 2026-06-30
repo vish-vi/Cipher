@@ -5,15 +5,15 @@ CHAR_SHEET = " ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.,?!-"
 
 def text_to_numbers(text, bases):
     """
-    Step 1: Converts text into a clean list of 3-digit lists using the 
+    Converts text into a clean list of 3-digit lists using the 
     custom character sheet. Numbers must be spelled out by the user.
     """
     encoded_message = []
     max_combinations = bases[0] * bases[1] * bases[2]
     
-    # Safety Check: Ensure the user's custom base can actually hold all our characters
+    # Ensure the user's custom base can actually hold all our characters
     if max_combinations < len(CHAR_SHEET):
-        print(f"⚠️ Warning: Base capacity ({max_combinations}) is smaller than character sheet ({len(CHAR_SHEET)}). Some characters may misbehave!")
+        print(f" Warning: Base capacity ({max_combinations}) is smaller than character sheet ({len(CHAR_SHEET)}). Some characters may misbehave!")
 
     for char in text:
         if char in CHAR_SHEET:
@@ -28,14 +28,13 @@ def text_to_numbers(text, bases):
             encoded_message.append([digit1, digit2, digit3])
         else:
             # If they type a number like '5', skip it or print a reminder
-            print(f"⚠️ Skipped '{char}': Numbers and unsupported punctuation must be spelled out!")
-            
+            print(f"Skipped '{char}': Numbers and unsupported punctuation must be spelled out")
+            print("Valid Characters: ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.,?!-")
+
     return encoded_message
 
 def inject_decoys_inline(clean_list, bases):
-    """
-    Step 2: Flattens the blocks into an integer stream and injects inline decoys.
-    """
+    # Inserting decoys
     flat_stream = []
     for block in clean_list:
         if random.random() < 0.30:
