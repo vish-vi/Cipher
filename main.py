@@ -1,22 +1,24 @@
-from cipher import text_to_numbers, inject_decoys
+from cipher import text_to_numbers, inject_decoys_inline, flatten_to_string
 
 def main():
-    print("--- Textile Cipher Logic Engine ---")
+    print("--- Textile Cipher Logic Engine V2 ---")
     
-    # 1. Get user input
-    user_text = input("Enter your secret message: ")
-    base_input = input("Enter 3-digit base max values (e.g., 4,5,6): ")
-    
-    # Convert string input "4,5,6" into a list of integers [4, 5, 6]
+    user_text = input("Enter message: ")              # Example: HI
+    base_input = input("Enter bases (e.g., 5,7,6): ") # Example: 5,7,6
     bases = [int(x) for x in base_input.split(",")]
     
-    # 2. Run Step 1: Exact translation
+    # 1. Clean Translation
     clean_list = text_to_numbers(user_text, bases)
-    print(\n"Step 1 (Clean List of Lists):", clean_list)
     
-    # 3. Run Step 2: Decoy Injection
-    final_scrambled = inject_decoys(clean_list, bases)
-    print("Step 2 (Scrambled with 4-Digit Decoys):", final_scrambled)
+    # 2. Inject Decoys Inline (e.g., [4, 6, 3] becomes [4, 8, 6, 3])
+    scrambled_blocks = inject_decoys_inline(clean_list, bases)
+    
+    # 3. Flatten into a single massive string
+    final_stream = flatten_to_string(scrambled_blocks)
+    
+    print("\n--- OUTPUT STREAM ---")
+    print(f"Continuous Code String: {final_stream}")
+    print("----------------------")
 
 if __name__ == "__main__":
     main()
