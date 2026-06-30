@@ -1,24 +1,27 @@
-from cipher import text_to_numbers, inject_decoys_inline, flatten_to_string
+from cipher import text_to_numbers, inject_decoys_inline, flatten_to_string, decode_string
 
 def main():
-    print("--- Textile Cipher Logic Engine V2 ---")
+    print("--- Textile Cipher: Full Cycle Test ---")
     
-    user_text = input("Enter message: ")              # Example: HI
-    base_input = input("Enter bases (e.g., 5,7,6): ") # Example: 5,7,6
+    # 1. User Setup
+    user_text = input("Enter secret message (letters only): ")
+    base_input = input("Enter 3-digit base max values (e.g., 5,7,6): ")
     bases = [int(x) for x in base_input.split(",")]
     
-    # 1. Clean Translation
+    # 2. The Encryption Pipeline
     clean_list = text_to_numbers(user_text, bases)
-    
-    # 2. Inject Decoys Inline (e.g., [4, 6, 3] becomes [4, 8, 6, 3])
     scrambled_blocks = inject_decoys_inline(clean_list, bases)
-    
-    # 3. Flatten into a single massive string
     final_stream = flatten_to_string(scrambled_blocks)
     
-    print("\n--- OUTPUT STREAM ---")
-    print(f"Continuous Code String: {final_stream}")
-    print("----------------------")
+    print("\n--- TRANSMISSION ---")
+    print(f"Hidden Pattern Stream: {final_stream}")
+    
+    # 3. The Decryption Pipeline (The Spy decoding it)
+    decrypted_text = decode_string(final_stream, bases)
+    
+    print("\n--- DECODED RESULT ---")
+    print(f"Decoded Message: {decrypted_text}")
+    print("-----------------------")
 
 if __name__ == "__main__":
     main()
