@@ -1,0 +1,13 @@
+Note: 
+Enter 'Date' as 'Day/Month/Year' e.g 31/01/2001 
+Enter 'Base' as dight1dight2dight3 e.g 473 (here 4, 7 and 3 are the values of base in its position respectively)
+Enter 'Message' as text, valid inputs are [A-Z] [a-z] [0-9] [ .,?-!<>'"] (Space is included)
+Possible Design Choices: Square and Polygon (enter 'Square' or 'Polygon' in 'Design Choice')
+
+
+Date: 
+Base: 
+
+Message: 
+
+Design Choice: 
