@@ -1,6 +1,6 @@
 import random
 
-# Define our custom worldbuilding character sheet
+# Define custom character sheet
 CHAR_SHEET = " ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.,?!-"
 
 def text_to_numbers(text, bases):
@@ -11,7 +11,7 @@ def text_to_numbers(text, bases):
     encoded_message = []
     max_combinations = bases[0] * bases[1] * bases[2]
     
-    # Ensure the user's custom base can actually hold all our characters
+    # Ensure the user's custom base can hold all characters
     if max_combinations < len(CHAR_SHEET):
         print(f" Warning: Base capacity ({max_combinations}) is smaller than character sheet ({len(CHAR_SHEET)}). Some characters may misbehave!")
 
@@ -29,15 +29,15 @@ def text_to_numbers(text, bases):
         else:
             # If they type a number like '5', skip it or print a reminder
             print(f"Skipped '{char}': Numbers and unsupported punctuation must be spelled out")
-            print("Valid Characters: ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.,?!-")
+            print("Valid Characters: A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z . , ? ! - ")
 
     return encoded_message
 
-def inject_decoys_inline(clean_list, bases):
-    # Inserting decoys
+def inject_decoys_inline(clean_list, bases, n):
+    # Inserting decoy numbers 
     flat_stream = []
     for block in clean_list:
-        if random.random() < 0.30:
+        if random.random() < n:
             corrupt_position = random.randint(0, 2)
             for i in range(3):
                 if i == corrupt_position:
@@ -51,7 +51,7 @@ def inject_decoys_inline(clean_list, bases):
 
 def add_date_padding(stream, skip_count, bases):
     """
-    Step 3: Inserts random noise at the front of the stream based on the Date Key.
+    Inserts random noise at the front of the stream based on the Date Key.
     """
     padding = []
     for _ in range(skip_count):
