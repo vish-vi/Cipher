@@ -7,10 +7,11 @@ def main():
     user_text = input("Enter text to be encoded (letters only): ")
     base_input = input("Enter 3-digit base max values (e.g., 5,7,6): ")
     bases = [int(x) for x in base_input.split(",")]
+    n = input("Enter percent of decoy numbers (e.g. 0.3, 0.5): ") 
     
     # encryption
     clean_list = text_to_numbers(user_text, bases)
-    scrambled_blocks = inject_decoys_inline(clean_list, bases)
+    scrambled_blocks = inject_decoys_inline(clean_list, bases, n)
     final_stream = flatten_to_string(scrambled_blocks)
     
     print("\n--- OUTPUT ---")
